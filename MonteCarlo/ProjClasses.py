@@ -103,18 +103,18 @@ class Analyzer():
         """Returns a combination count table of face rolls and the number of times occurred.
         return=row_tup_combo, pd DataFrame, the combo counts for each tuple."""
         row_tup=[tuple(sorted(self.gameobj.play_run.loc[i])) for i in self.gameobj.play_run.index]
-        row_tup_combo=pd.DataFrame.from_dict({tuple_combo: row_tup.count(tuple_combo) for tuple_combo in set(row_tup)},orient='index')
-        row_tup_combo.index.name='Combo Roll'
+        row_tup_combo=pd.DataFrame.from_dict({tuple_combo: row_tup.count(tuple_combo) for tuple_combo in list(set(row_tup))},orient='index')
+        row_tup_combo.index=pd.MultiIndex.from_tuples(row_tup_combo.index)
         row_tup_combo=row_tup_combo.rename(columns={0:'Combo Count'})
         return row_tup_combo
     def permute_count(self):
         """Returns a permutation count table of face rolls and the number of times occurred.
         return=row_tup_perm, pd DataFrame, the permutation counts for each tuple."""
         row_tup=[tuple(self.gameobj.play_run.loc[i]) for i in self.gameobj.play_run.index]
-        row_tup_perm=pd.DataFrame.from_dict({tuple_perm: row_tup.count(tuple_perm) for tuple_perm in set(row_tup)},orient='index')
-        row_tup_perm.index.name='Permute Roll'
+        row_tup_perm=pd.DataFrame.from_dict({tuple_perm: row_tup.count(tuple_perm) for tuple_perm in list(set(row_tup))},orient='index')
+        row_tup_perm.index=pd.MultiIndex.from_tuples(row_tup_perm.index)
         row_tup_perm=row_tup_perm.rename(columns={0:'Permute Count'})
-        return row_tup_perm    
-
+        pd.set_option('display.multi_sparse',False)
+        return row_tup_perm
 
         
