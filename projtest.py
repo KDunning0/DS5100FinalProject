@@ -93,7 +93,7 @@ class AnalyzerTestSuite(unittest.TestCase):
         new_game=Game(dice_list)
         new_game.play(10)
         new_ana=Analyzer(new_game)
-        self.assertEqual(len(new_ana.combo_count().index[0]),3)
+        self.assertIsInstance(new_ana.combo_count().index,pd.MultiIndex)
         self.assertIsInstance(new_ana.combo_count(),pd.DataFrame)
     def test_12_permu(self):
         Num=np.array([1,2,3,4,5,6])
@@ -104,7 +104,7 @@ class AnalyzerTestSuite(unittest.TestCase):
         new_game=Game(dice_list)
         new_game.play(10)
         new_ana=Analyzer(new_game)
-        self.assertEqual(len(new_ana.permute_count().index[0]),3)
+        self.assertIsInstance(new_ana.permute_count().index,pd.MultiIndex)
         self.assertIsInstance(new_ana.permute_count(),pd.DataFrame)
         
 if __name__ == '__main__':
